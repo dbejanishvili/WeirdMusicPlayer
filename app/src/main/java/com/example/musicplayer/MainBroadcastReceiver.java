@@ -10,6 +10,8 @@ public class MainBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
+        if(action == null)
+            return;
 
         if (action.equals(WifiManager.WIFI_STATE_CHANGED_ACTION)) {
             Intent startIntent = new Intent(context,MainService.class);

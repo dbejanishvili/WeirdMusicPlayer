@@ -20,8 +20,11 @@ public class MainService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        String action = intent.getAction();
+        if(action == null)
+            return START_STICKY;
 
-        if (intent.getAction().equals(Constants.STARTFOREGROUND_ACTION)) {
+        if (action.equals(Constants.STARTFOREGROUND_ACTION) && !player.isPlaying()) {
 
             Intent mainNotificationIntent = new Intent(this, MainActivity.class);
             mainNotificationIntent.setAction(Constants.MAIN_ACTION);
@@ -63,7 +66,7 @@ public class MainService extends Service {
             player.start();
 
 
-        } else if (intent.getAction().equals(Constants.PREV_ACTION)) {
+        } else if (action.equals(Constants.PREV_ACTION)) {
             player.stop();
             player.release();
             currentTrack--;
@@ -72,7 +75,7 @@ public class MainService extends Service {
             player = MediaPlayer.create(this, playList.get(currentTrack));
             player.start();
 
-        }else if (intent.getAction().equals(Constants.NEXT_ACTION)) {
+        }else if (action.equals(Constants.NEXT_ACTION)) {
             player.stop();
             player.release();
             currentTrack++;
@@ -81,7 +84,7 @@ public class MainService extends Service {
             player = MediaPlayer.create(this, playList.get(currentTrack));
             player.start();
 
-        } else if (intent.getAction().equals(Constants.STOPFOREGROUND_ACTION)) {
+        } else if (action.equals(Constants.STOPFOREGROUND_ACTION)) {
             player.pause();
 
         }
