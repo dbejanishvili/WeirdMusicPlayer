@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         myBroadcastReceiver = new MainBroadcastReceiver();
-        IntentFilter intentFilter = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED);
         registerReceiver(myBroadcastReceiver, intentFilter);
     }
     @Override

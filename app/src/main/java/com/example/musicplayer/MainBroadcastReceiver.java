@@ -13,7 +13,7 @@ public class MainBroadcastReceiver extends BroadcastReceiver {
         if(action == null)
             return;
 
-        if (action.equals(WifiManager.WIFI_STATE_CHANGED_ACTION)) {
+        if (action.equals(Intent.ACTION_AIRPLANE_MODE_CHANGED)) {
             Intent startIntent = new Intent(context,MainService.class);
             startIntent.setAction(Constants.STARTFOREGROUND_ACTION);
             context.startService(startIntent);

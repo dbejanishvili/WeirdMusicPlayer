@@ -86,7 +86,7 @@ public class MainService extends Service {
 
         } else if (action.equals(Constants.STOPFOREGROUND_ACTION)) {
             player.pause();
-
+            stopForeground(true);
         }
 
 
@@ -109,7 +109,6 @@ public class MainService extends Service {
         currentTrack = 0;
         player.release();
         player = null;
-        stopForeground(true);
         stopSelf();
     }
 
