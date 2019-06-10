@@ -83,8 +83,7 @@ public class MainService extends Service {
 
         } else if (intent.getAction().equals(Constants.STOPFOREGROUND_ACTION)) {
             player.pause();
-            stopForeground(true);
-            stopSelf();
+
         }
 
 
@@ -104,6 +103,11 @@ public class MainService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        currentTrack = 0;
+        player.release();
+        player = null;
+        stopForeground(true);
+        stopSelf();
     }
 
     @Override

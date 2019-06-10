@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-
+    private MainBroadcastReceiver myBroadcastReceiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Weird Music Player";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID,getPackageName() + name, importance);
@@ -37,8 +37,13 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
 
-        MainBrodcastReceiver myBroadcastReceiver = new MainBrodcastReceiver();
+        myBroadcastReceiver = new MainBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
         registerReceiver(myBroadcastReceiver, intentFilter);
+    }
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        unregisterReceiver(myBroadcastReceiver);
     }
 }
